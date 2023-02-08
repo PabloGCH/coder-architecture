@@ -15,7 +15,7 @@ import { startConnectionEvents } from "./services/socket.service";
 
 
 const NUMBEROFCORES = os.cpus().length;
-const options = {default: {p: 8080, m: "FORK"}, alias:{p:"puerto", m:"mode"}};
+const options = {default: {p: 8080, m: "FORK", db: "MONGO"}, alias:{p:"puerto", m:"mode", db:"database"}};
 const args = minimist(process.argv.slice(2), options);
 
 

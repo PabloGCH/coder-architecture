@@ -1,4 +1,3 @@
-import fs from "fs";
 import { DbManager } from "../scripts/dbScripts";
 
 const dbManager :DbManager = new DbManager("messages");
