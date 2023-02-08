@@ -1,16 +1,15 @@
 import { dbClient } from "../dbclient";
 import knex, { Knex } from "knex";
-import { sqliteconfig } from "../config/sqliteconfig";
 import { knexTableBuilderCallback } from "../../interfaces/knexTableBuilderCallback";
 
 
 
-export class sqliteClient implements dbClient {
+export class SQLClient implements dbClient {
     private tableName :string;
     private database:Knex;
-    constructor(tableName: string, table :knexTableBuilderCallback) {
+    constructor(tableName: string, config :Knex.Config ,table :knexTableBuilderCallback) {
         this.tableName = tableName;
-        this.database = knex(sqliteconfig);
+        this.database = knex(config);
         this.database.schema.createTableIfNotExists(this.tableName, table);
     }
     public async save(object: any): Promise<any> {
