@@ -1,6 +1,6 @@
 export class UserDTO {
-    private username: string = "";
-    constructor(user :any) {
-        this.username = user.username;
+    public username: string = "";
+    constructor(object:any) {
+        this.username = object.username;
     }
 }

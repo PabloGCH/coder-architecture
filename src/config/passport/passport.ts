@@ -1,8 +1,8 @@
 import express from 'express';
 import passport from "passport";
-import { UserModel } from "../../persistence/schemas/user";
 import bcrypt from "bcrypt";
 import passportLocal from "passport-local";
+import { UserModel } from '../../persistence/models/user.mongo.model';
 
 const createHash = (password :string) => {
     const hash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));

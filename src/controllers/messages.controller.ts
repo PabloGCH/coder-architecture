@@ -4,6 +4,7 @@ import { Server } from 'socket.io';
 import { createManager } from '../persistence/managerFactory';
 import { MANAGERTYPE } from '../persistence/enums/managerType.enum';
 import { Controller, ControllerBuilder } from '../interfaces/controller.interface';
+import { MessageDTO } from '../DTOs/message.dto';
 
 const messageManager = createManager(MANAGERTYPE.MESSAGES);
 
@@ -23,7 +24,10 @@ export const newMessage :ControllerBuilder = (io: Server) => {
             } else {
                 messageManager.save(req.body).then(() => {
                     messageManager.getObjects().then(messages => {
-                        io.sockets.emit("messages", {messages: messages})
+                        let messageDTO :MessageDTO[] = messages.map((message) => {return new MessageDTO(message)})
+
+                        console.log("sendObject", messageDTO);
+                        io.sockets.emit("messages", {messages: messageDTO});
                         res.send({success: true})
                     })
                 }).catch((err) => {

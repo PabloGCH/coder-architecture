@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { Server } from 'socket.io';
+import { ProductDTO } from '../DTOs/product.dto';
 import { ControllerBuilder } from '../interfaces/controller.interface';
 import { MANAGERTYPE } from '../persistence/enums/managerType.enum';
 import { createManager } from '../persistence/managerFactory';
@@ -25,8 +26,10 @@ export const newProduct :ControllerBuilder  = (io :Server) => {
                 let product = req.body;
                 Object.assign(product, {price: parseInt(product.price)});
                 productManager.save(product).then(() => {
-                    productManager.getObjects().then((products:any) => {
-                        io.sockets.emit("products", {products: products})
+                    productManager.getObjects().then((products:any[]) => {
+                        let productDTO :ProductDTO[] = products.map((product:any) => {return new ProductDTO(product)});
+                        console.log("sendObject", productDTO);
+                        io.sockets.emit("products", {products: productDTO})
                         res.send({success: true})
                     })
                 })

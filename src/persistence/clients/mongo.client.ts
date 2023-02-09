@@ -16,20 +16,17 @@ export class MongoClient implements DbClient{
     }
     public async getObjects() :Promise<any[]> {
         let objects = await this.model.find({});
-        console.log(objects);
-        //parse to DTO
-        return []
+        console.log("getobjects", objects);
+        return objects;
     }
     public async getObject(id: string | number) :Promise<any> {
         let object = await this.model.findById(id);
-        console.log(object);
-        //parse to DTO
-        return {};
+        console.log("getobject", object);
+        return object;
     }
     public async update(id: string | number, object: any) :Promise<any> {
         let updatedObject = await this.model.findByIdAndUpdate(id, object);
         console.log(updatedObject);
-        //parse to DTO
-        return {};
+        return updatedObject;
     }
 }

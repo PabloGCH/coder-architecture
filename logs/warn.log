@@ -217,3 +217,4 @@
 [2023-02-04T03:32:16.024] [WARN] warnings - { message: 'Route not found', url: '/login', method: 'GET' }
 [2023-02-04T03:33:10.075] [WARN] warnings - { message: 'Route not found', url: '/login', method: 'GET' }
 [2023-02-04T03:33:32.503] [WARN] warnings - { message: 'Route not found', url: '/login', method: 'GET' }
+[2023-02-08T22:32:54.263] [WARN] warnings - { message: 'Route not found', url: '/favicon.ico', method: 'GET' }

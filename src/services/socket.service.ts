@@ -1,14 +1,21 @@
 import { Socket, Server as SocketServer} from "socket.io";
-import * as productDbManager from "../persistence/managers/productsDbManager";
-import * as messageManager from "../persistence/managers/messageDbManager";
+import { MANAGERTYPE } from "../persistence/enums/managerType.enum";
+import { createManager } from "../persistence/managerFactory";
 
-export function startConnectionEvents(io :SocketServer) {
-    io.on("connection", (socket :Socket) => {
-        productDbManager.getAll().then(products => {
-            socket.emit("products", {products: products})
-        })
-        messageManager.getAll().then(messages => {
-            socket.emit("messages", {messages: messages})
-        })
+const productManager = createManager(MANAGERTYPE.PRODUCTS);
+const messageManager = createManager(MANAGERTYPE.MESSAGES);
+
+export const startConnectionEvents = (io :SocketServer) => {
+    io.on("connection", async (socket :Socket) => {
+        if(productManager === null) {
+            throw new Error("Failed to create product manager");
+        }
+        if(messageManager === null) {
+            throw new Error("Failed to create message manager");
+        }
+        let products = await productManager.getObjects();
+        socket.emit("products", {products: products})
+        let messages = await messageManager.getObjects();
+        socket.emit("messages", {messages: messages})
     })
 }

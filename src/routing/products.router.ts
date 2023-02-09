@@ -1,6 +1,6 @@
 import express from "express";
 import { Server } from "socket.io";
-import { newProduct, test } from "../controllers/products.controller";
+import { newProduct } from "../controllers/products.controller";
 
 export class ProductsRouter {
     private router = express.Router();
