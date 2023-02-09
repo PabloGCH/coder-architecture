@@ -1,17 +1,16 @@
 import express from "express";
 import { Server } from "socket.io";
-import { newProduct } from "../controllers/products.controller";
+import { newProduct, test } from "../controllers/products.controller";
 
-class ProductsRouter {
+export class ProductsRouter {
     private router = express.Router();
     constructor(
         private io :Server
     ) {
-        this.router.post("/product", newProduct(io));
+        this.router.post("/product", newProduct(this.io));
     }
     getRouter() {
         return this.router;
     }
 }
 
-export default ProductsRouter;

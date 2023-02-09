@@ -1,4 +1,4 @@
-import express, {Request, Response} from "express";
+import express from "express";
 import { Server } from "socket.io";
 import { newMessage } from "../controllers/messages.controller";
 
@@ -7,7 +7,7 @@ export class MessageRouter {
     constructor(
         private io :Server
     ) {
-        this.router.post("/message", newMessage(io));
+        this.router.post("/message", newMessage(this.io));
     }
     getRouter() {
         return this.router;

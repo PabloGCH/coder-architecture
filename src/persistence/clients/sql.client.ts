@@ -1,6 +1,6 @@
 import { DbClient } from "../dbclient";
 import knex, { Knex } from "knex";
-import { knexTableBuilderCallback } from "../../interfaces/knexTableBuilderCallback";
+import { knexTableBuilderCallback } from "../../interfaces/knex.interfaces";
 
 
 

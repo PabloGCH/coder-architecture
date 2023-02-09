@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import os from "os";
+import { UserModel } from "../persistence/models/user.mongo.model";
 const NUMBEROFCORES = os.cpus().length;
 
-export function getServerInfo(req: Request, res: Response) {
+export const getServerInfo = async (req: Request, res: Response) => {
     if(process.send) {
         process.send(process.pid);
     }
@@ -17,4 +18,8 @@ export function getServerInfo(req: Request, res: Response) {
         cores: NUMBEROFCORES
     }
     res.send(serverData);
+}
+export const getUsers = async (req: Request, res: Response) => {
+    let users = UserModel.find({});
+    res.send(users);
 }

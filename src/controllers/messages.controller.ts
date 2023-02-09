@@ -6,7 +6,7 @@ import { MANAGERTYPE } from '../persistence/enums/managerType.enum';
 
 const messageManager = createManager(MANAGERTYPE.MESSAGES);
 
-export function newMessage(io: Server) {
+export const newMessage = async (io: Server) => {
     return (req: Request|any, res: Response|any) => {
         try {
             if(messageManager === null) {

@@ -6,7 +6,9 @@ import { errorLogger } from '../services/logger.service';
 
 const productManager = createManager(MANAGERTYPE.PRODUCTS); 
 
-export function newProduct(io :Server) {
+export const test = async (test :string) => {}
+
+export const newProduct = async (io :Server) => {
     return (req :Request|any, res :Response|any) => {
         try {
             if(productManager === null) {

@@ -3,10 +3,10 @@ import bcrypt from "bcrypt";
 import { UserModel } from '../persistence/models/user.mongo.model';
 
 
-export function register(req : Request|any, res : Response|any) {
+export const register = async(req : Request|any, res : Response|any) => {
     res.send({success: req.success || false, message: req.message||""})
 }
-export function logoff(req : Response | any, res : Response) {
+export const logoff = async (req : Response | any, res : Response) => {
     req.logout((err :any) => {
         if(err) return res.send("failed to close session")
             req.session.destroy((err :any) => {
@@ -15,7 +15,7 @@ export function logoff(req : Response | any, res : Response) {
             res.redirect("/")
     });
 }
-export function login(req : Request|any, res : Response|any) {
+export const login = async(req : Request|any, res : Response|any) => {
     try {
         const body = req.body;
         if(req.session.user) {
