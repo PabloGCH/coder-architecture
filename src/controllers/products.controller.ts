@@ -1,12 +1,17 @@
 import { Request, Response } from 'express';
 import { Server } from 'socket.io';
-import * as productDbManager from "../persistence/managers/productsDbManager";
+import { MANAGERTYPE } from '../persistence/enums/managerType.enum';
+import { createManager } from '../persistence/managerFactory';
 import { errorLogger } from '../services/logger.service';
 
+const productManager = createManager(MANAGERTYPE.PRODUCTS); 
 
 export function newProduct(io :Server) {
     return (req :Request|any, res :Response|any) => {
         try {
+            if(productManager === null) {
+                throw new Error("Failed to create product manager");
+            }
             if(req.session.user == undefined){
                 let error = {success: false, message: "not_logged"};
                 errorLogger.error({
@@ -18,8 +23,8 @@ export function newProduct(io :Server) {
             } else {
                 let product = req.body;
                 Object.assign(product, {price: parseInt(product.price)});
-                productDbManager.save(product).then(() => {
-                    productDbManager.getAll().then(products => {
+                productManager.save(product).then(() => {
+                    productManager.getObjects().then((products:any) => {
                         io.sockets.emit("products", {products: products})
                         res.send({success: true})
                     })

@@ -1,17 +1,18 @@
 import mongoose from "mongoose";
-const collection = "messages";
+const collection = "products";
 const schema = new mongoose.Schema({
-    email: {
+    name: {
         type: String,
         required: true
     },
-    date: {
-        type: String,
+    price: {
+        type: Number,
         required: true
     },
-    message: {
+    imgUrl: {
         type: String,
         required: true
     }
 })
-export const MessageSchema = mongoose.model(collection, schema);
+export const ProductMongoModel = mongoose.model(collection, schema);
+

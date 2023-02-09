@@ -1,33 +1,33 @@
 import { Model } from "mongoose";
-import { dbClient } from "../dbclient";
+import { DbClient } from "../dbclient";
 
 
-export class MongoClient implements dbClient{
-    private schema :Model<any>;
-    constructor(schema :Model<any>) {
-        this.schema = schema;
+export class MongoClient implements DbClient{
+    private model :Model<any>;
+    constructor(model :Model<any>) {
+        this.model = model ;
     }
     public async save(object :any) :Promise<any> {
-        let newObject :any = await this.schema.create(object);
+        let newObject :any = await this.model.create(object);
         return newObject;
     }
     public async delete(id: number) :Promise<void> {
-        await this.schema.findByIdAndDelete(id);
+        await this.model.findByIdAndDelete(id);
     }
     public async getObjects() :Promise<any[]> {
-        let objects = await this.schema.find({});
+        let objects = await this.model.find({});
         console.log(objects);
         //parse to DTO
         return []
     }
     public async getObject(id: string | number) :Promise<any> {
-        let object = await this.schema.findById(id);
+        let object = await this.model.findById(id);
         console.log(object);
         //parse to DTO
         return {};
     }
     public async update(id: string | number, object: any) :Promise<any> {
-        let updatedObject = await this.schema.findByIdAndUpdate(id, object);
+        let updatedObject = await this.model.findByIdAndUpdate(id, object);
         console.log(updatedObject);
         //parse to DTO
         return {};

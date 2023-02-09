@@ -1,8 +1,9 @@
 import { MongoClient } from "../clients/mongo.client";
-import { MessageSchema } from "../schemas/message.mongo.schema";
+import { MessageMongoModel } from "../models/message.mongo.model";
+
 
 export class MessageMongoManager extends MongoClient {
   constructor() {
-    super(MessageSchema);
+    super(MessageMongoModel);
   }
 }

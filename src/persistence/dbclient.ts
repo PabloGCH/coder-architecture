@@ -1,5 +1,5 @@
 
-export interface dbClient{
+export interface DbClient {
     save(object :any) :Promise<any>,
     update(id :string | number,object :any) :Promise<any>,
     delete(id: number) :Promise<void>,

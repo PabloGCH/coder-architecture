@@ -1,10 +1,10 @@
-import { dbClient } from "../dbclient";
+import { DbClient } from "../dbclient";
 import knex, { Knex } from "knex";
 import { knexTableBuilderCallback } from "../../interfaces/knexTableBuilderCallback";
 
 
 
-export class SQLClient implements dbClient {
+export class SQLClient implements DbClient {
     private tableName :string;
     private database:Knex;
     constructor(tableName: string, config :Knex.Config ,table :knexTableBuilderCallback) {

@@ -1,8 +1,8 @@
 import { MongoClient } from "../clients/mongo.client";
-import { ProductSchema } from "../schemas/product.mongo.schema";
+import { ProductMongoModel } from "../models/product.mongo.model";
 
-export class productMongoManager extends MongoClient {
+export class ProductMongoManager extends MongoClient {
   constructor() {
-    super(ProductSchema);
+    super(ProductMongoModel);
   }
 }

@@ -1,6 +1,6 @@
 import { Knex } from "knex";
 
-export const ProductSQLSchema = (table :Knex.TableBuilder) =>{
+export const ProductSQLTable = (table :Knex.TableBuilder) =>{
     table.increments("id");
     table.string("name", 20);
     table.integer("price").nullable();

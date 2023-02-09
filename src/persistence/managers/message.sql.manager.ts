@@ -1,9 +1,9 @@
 import { Knex } from "knex";
 import { SQLClient } from "../clients/sql.client";
-import { MessageSQLSchema } from "../schemas/message.sql.schema";
+import { MessageSQLTable } from "../models/message.sql.table";
 
 export class MessageSQLManager extends SQLClient {
     constructor(config :Knex.Config) {
-        super('messages', config, MessageSQLSchema);
+        super('messages', config, MessageSQLTable);
     }
 }
