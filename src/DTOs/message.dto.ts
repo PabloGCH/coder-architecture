@@ -1,8 +1,8 @@
 export class MessageDTO {
-    id: string|number;
-    email: string;
-    date: string;
-    message: string;
+    public id: string|number;
+    public email: string;
+    public date: string;
+    public message: string;
     constructor(object :any) {
         this.id = object.id || object._id || "";
         this.email = object.email || "";

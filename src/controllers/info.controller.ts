@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import os from "os";
+import { UserDTO } from "../DTOs/user.dto";
 import { Controller } from "../interfaces/controller.interface";
 import { UserModel } from "../persistence/models/user.mongo.model";
 const NUMBEROFCORES = os.cpus().length;
@@ -21,6 +22,7 @@ export const getServerInfo :Controller = async (req: Request, res: Response) => 
     res.send(serverData);
 }
 export const getUsers :Controller = async (req: Request, res: Response) => {
-    let users = UserModel.find({});
-    res.send(users);
+    let users :any[] = await UserModel.find({});
+    let userDTO :UserDTO[] = users.map(user => {return new UserDTO(user)});
+    res.send({success: true, message: "Users fetched", response: userDTO});
 }

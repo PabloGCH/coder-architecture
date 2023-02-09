@@ -1,8 +1,8 @@
 export class ProductDTO {
-    id: number|string;
-    name: string;
-    price: number;
-    imgUrl: string;
+    public id: number|string;
+    public name: string;
+    public price: number;
+    public imgUrl: string;
     constructor(object :any) {
         this.id = object.id || object._id || "";
         this.name = object.name || "";

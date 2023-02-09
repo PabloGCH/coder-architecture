@@ -1,6 +1,8 @@
 export class UserDTO {
+    public id: string|number;
     public username: string = "";
     constructor(object:any) {
-        this.username = object.username;
+        this.id = object.id || object._id || "";
+        this.username = object.username || "";
     }
 }
