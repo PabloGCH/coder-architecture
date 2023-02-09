@@ -3,11 +3,12 @@ import { errorLogger } from "../services/logger.service";
 import { Server } from 'socket.io';
 import { createManager } from '../persistence/managerFactory';
 import { MANAGERTYPE } from '../persistence/enums/managerType.enum';
+import { Controller, ControllerBuilder } from '../interfaces/controller.interface';
 
 const messageManager = createManager(MANAGERTYPE.MESSAGES);
 
-export const newMessage = async (io: Server) => {
-    return (req: Request|any, res: Response|any) => {
+export const newMessage :ControllerBuilder = (io: Server) => {
+    return async (req: Request|any, res: Response|any) => {
         try {
             if(messageManager === null) {
                 throw new Error("Failed to create message manager");

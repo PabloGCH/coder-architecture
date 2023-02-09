@@ -1,12 +1,13 @@
 import { Request, Response } from 'express';
 import bcrypt from "bcrypt";
 import { UserModel } from '../persistence/models/user.mongo.model';
+import { Controller } from '../interfaces/controller.interface';
 
 
-export const register = async(req : Request|any, res : Response|any) => {
+export const register :Controller = async(req : Request|any, res : Response|any) => {
     res.send({success: req.success || false, message: req.message||""})
 }
-export const logoff = async (req : Response | any, res : Response) => {
+export const logoff :Controller = async (req : Response | any, res : Response) => {
     req.logout((err :any) => {
         if(err) return res.send("failed to close session")
             req.session.destroy((err :any) => {
@@ -15,7 +16,7 @@ export const logoff = async (req : Response | any, res : Response) => {
             res.redirect("/")
     });
 }
-export const login = async(req : Request|any, res : Response|any) => {
+export const login :Controller = async(req : Request|any, res : Response|any) => {
     try {
         const body = req.body;
         if(req.session.user) {
