@@ -25,8 +25,6 @@ export const newMessage :ControllerBuilder = (io: Server) => {
                 messageManager.save(req.body).then(() => {
                     messageManager.getObjects().then(messages => {
                         let messageDTO :MessageDTO[] = messages.map((message) => {return new MessageDTO(message)})
-
-                        console.log("sendObject", messageDTO);
                         io.sockets.emit("messages", {messages: messageDTO});
                         res.send({success: true})
                     })

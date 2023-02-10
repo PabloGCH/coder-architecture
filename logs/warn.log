@@ -218,3 +218,6 @@
 [2023-02-04T03:33:10.075] [WARN] warnings - { message: 'Route not found', url: '/login', method: 'GET' }
 [2023-02-04T03:33:32.503] [WARN] warnings - { message: 'Route not found', url: '/login', method: 'GET' }
 [2023-02-08T22:32:54.263] [WARN] warnings - { message: 'Route not found', url: '/favicon.ico', method: 'GET' }
+[2023-02-08T23:07:08.289] [WARN] warnings - { message: 'Route not found', url: '/favicon.ico', method: 'GET' }
+[2023-02-09T20:48:16.256] [WARN] warnings - { message: 'Route not found', url: '/favicon.ico', method: 'GET' }
+[2023-02-09T21:07:30.818] [WARN] warnings - { message: 'Route not found', url: '/favicon.ico', method: 'GET' }

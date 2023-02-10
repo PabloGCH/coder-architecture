@@ -28,7 +28,6 @@ export const newProduct :ControllerBuilder  = (io :Server) => {
                 productManager.save(product).then(() => {
                     productManager.getObjects().then((products:any[]) => {
                         let productDTO :ProductDTO[] = products.map((product:any) => {return new ProductDTO(product)});
-                        console.log("sendObject", productDTO);
                         io.sockets.emit("products", {products: productDTO})
                         res.send({success: true})
                     })
