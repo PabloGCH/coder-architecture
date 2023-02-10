@@ -1,17 +1,7 @@
 import express from "express";
-import { Server } from "socket.io";
 import { newMessage } from "../controllers/messages.controller";
-
-export class MessageRouter {
-    private router = express.Router();
-    constructor(
-        private io :Server
-    ) {
-        this.router.post("/message", newMessage(this.io));
-    }
-    getRouter() {
-        return this.router;
-    }
-}
+const router = express.Router();
+router.post("/message", newMessage);
+export {router as messageRouter};
 
 

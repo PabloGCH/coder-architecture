@@ -3,17 +3,15 @@ import { siteRouter } from "./site.router";
 import { numbersRouter } from "./numbers.router";
 import { infoRouter } from "./info.router";
 import { authRouter } from "./auth.router";
-import { MessageRouter } from "./messages.router";
+import  { messageRouter } from "./messages.router";
 import { warningLogger } from "../services/logger.service";
-import { ProductsRouter } from "./products.router";
+import  { productsRouter }  from "./products.router";
 
 
 
 export class RouterManager{
     private router :Router = express.Router();
-    constructor(
-        private io :any //SocketServer
-    ) {
+    constructor() {
         this.loadRoutes();
     }
     public getRouter() :Router {
@@ -24,8 +22,8 @@ export class RouterManager{
         this.router.use("/api/numbers", numbersRouter);
         this.router.use("/api/info", infoRouter);
         this.router.use("/api/auth", authRouter);
-        this.router.use("/api/products", new ProductsRouter(this.io).getRouter());
-        this.router.use("/api/messages", new MessageRouter(this.io).getRouter());
+        this.router.use("/api/products", productsRouter);
+        this.router.use("/api/messages", messageRouter);
         this.router.get("/", (req :any, res :any) => {
             res.redirect("/site")
         });
