@@ -6,5 +6,6 @@ export const sqliteconfig :Knex.Config = {
 	client: "sqlite",
 	connection: {
 		filename: path.join(__dirname, "../db/messagesDb.sqlite")
-	}
+	},
+    useNullAsDefault: true
 }
