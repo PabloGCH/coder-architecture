@@ -12,6 +12,7 @@ if(Config.DATABASE_NAME === "SQLITE" || Config.DATABASE_NAME === "SQL")
     SQLDatabaseConnection.getInstance().connect(Config.DATABASE_NAME);
 import { SocketService } from "./services/socket.service";
 import { RouterManager } from "./routing/router";
+import { logger } from "./services/logger.service";
 
 //SERVER INITIALIZATION
 if(Config.RUN_MODE.toUpperCase() == "CLUSTER" && cluster.isPrimary) {
@@ -24,10 +25,14 @@ if(Config.RUN_MODE.toUpperCase() == "CLUSTER" && cluster.isPrimary) {
         cluster.fork();
     })
 } else {
-    if(Config.RUN_MODE.toUpperCase() == "FORK") {console.log("Server initialized on fork mode")}
+    if(Config.RUN_MODE.toUpperCase() == "FORK") {
+        logger.info("Server initialized on fork mode");
+    }
     const app = express();
     Config.configServer(app);
-    const server = app.listen(Config.PORT, ()=>{console.log(`server listening on port ${Config.PORT}`)});
+    const server = app.listen(Config.PORT, ()=>{
+        logger.info(`server listening on port ${Config.PORT}`);
+    });
     SocketService.getInstance().connect(server);
     app.use("/", new RouterManager().getRouter());
 }

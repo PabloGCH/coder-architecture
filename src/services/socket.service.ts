@@ -1,6 +1,7 @@
 import { Socket, Server as SocketServer} from "socket.io";
 import { MANAGERTYPE } from "../persistence/enums/managerType.enum";
 import { createManager } from "../persistence/managerFactory";
+import { errorLogger, logger } from "./logger.service";
 
 const productManager = createManager(MANAGERTYPE.PRODUCTS);
 const messageManager = createManager(MANAGERTYPE.MESSAGES);
@@ -11,19 +12,26 @@ export class SocketService {
     public connect(server :any) {
         if(!SocketService.io) {
             SocketService.io = new SocketServer(server);
+            logger.info("Socket server initialized")
             this.startConnectionEvents();
             return;
         }
-        throw new Error("Socket server already initialized");
+        errorLogger.error("Cannot initialize socket server. Socket server already initialized");
+        throw new Error("Cannot initialize socket server. Socket server already initialized");
     }
     private startConnectionEvents() {
-        if(SocketService.io === null) { throw new Error("Socket server not initialized")}
+        if(SocketService.io === null) {
+            errorLogger.error("Cannot start connection events. Socket server not initialized");
+            throw new Error("Socket server not initialized")
+        }
         SocketService.io.on("connection", async (socket :Socket) => {
             if(productManager === null) {
-                throw new Error("Failed to create product manager");
+                errorLogger.error("Cannot start connection events. Product manager not created");
+                throw new Error("Cannot start connection events. Product manager not created");
             }
             if(messageManager === null) {
-                throw new Error("Failed to create message manager");
+                errorLogger.error("Cannot start connection events. Message manager not created");
+                throw new Error("Cannot start connection events. Message manager not created");
             }
             let products = await productManager.getObjects();
             socket.emit("products", {products: products})
@@ -32,7 +40,10 @@ export class SocketService {
         })
     }
     public getSocketServer() :SocketServer {
-        if(SocketService.io === null) { throw new Error("Socket server not initialized") }
+        if(SocketService.io === null) {
+            errorLogger.error("Cannot get socket server. Socket server not initialized");
+            throw new Error("Can't get socket server. Socket server not initialized");
+        }
         return SocketService.io 
     }
     public static getInstance() :SocketService { return SocketService._instance }

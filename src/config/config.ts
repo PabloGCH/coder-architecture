@@ -1,7 +1,6 @@
 import express from 'express';
 import session from "express-session";
 import MongoStore from "connect-mongo";
-import { configureLogger } from "./logger/logger";
 import { configurePassport } from './passport/passport';
 import { logger } from "../services/logger.service";
 import path from "path";
@@ -35,8 +34,9 @@ export class Config {
                 maxAge: 1000 * 60 * 10 // 1 segundo * 60 * 10 = 10 minutos
             }
         }))
-        configureLogger();
         configurePassport(app);
     };
-    private constructor() {}
+    private constructor() {
+
+    }
 }

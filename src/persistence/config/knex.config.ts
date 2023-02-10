@@ -1,5 +1,5 @@
 import knex, { Knex } from "knex";
-import { logger } from "../../services/logger.service";
+import { errorLogger, logger } from "../../services/logger.service";
 import { MessageSQLTable } from "../models/message.sql.table";
 import { ProductSQLTable } from "../models/product.sql.table";
 import { sqloptions } from "./mysqlconfig";
@@ -45,12 +45,15 @@ export class SQLDatabaseConnection {
                 config = sqloptions;
             if(config) {
                 SQLDatabaseConnection.database = knex(config);
+                logger.info(`Connected to ${databaseName} database`);
                 this.createTableIfNotExists();
                 return;
             }
-            throw new Error("Invalid database name in arguments");
+            errorLogger.error("Cannot connect to database because the database name is not valid");
+            throw new Error("Cannot connect to database because the database name is not valid");
         } else {
-            throw new Error("Database already connected");
+            errorLogger.error("Cannot connect to database because it is already connected");
+            throw new Error("Cannot connect to database because it is already connected");
         }
     }
 }
