@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import os from "os";
+import { Config } from "../config/config";
 import { UserDTO } from "../DTOs/user.dto";
 import { Controller } from "../interfaces/controller.interface";
 import { UserModel } from "../persistence/models/user.mongo.model";
-const NUMBEROFCORES = os.cpus().length;
 
 export const getServerInfo :Controller = async (req: Request, res: Response) => {
     if(process.send) {
@@ -17,7 +17,7 @@ export const getServerInfo :Controller = async (req: Request, res: Response) => 
         args: process.argv.slice(2).toString(),
         execPath: process.execPath,
         projectPath: process.env.PWD,
-        cores: NUMBEROFCORES
+        cores: Config.NUMBER_OF_CORES,
     }
     res.send(serverData);
 }
